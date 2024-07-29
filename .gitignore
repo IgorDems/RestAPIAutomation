@@ -1,0 +1,52 @@
+# Default ignored files
+/shelf/
+.idea/
+
+*.class
+*.jar
+*.war
+*.ear
+
+# User-specific files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# VS Code
+.vscode/
+
+# macOS files
+.DS_Store
+
+Thumbs.db
+ehthumbs.db
+
+Desktop.ini
+
+tmp/
+temp/
+
+# Build directory
+build/
+out/
+target/
+
+# Maven
+target/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# NetBeans
+.nb-configuration.xml
+.nb-gradle/
+build/
+
+# Log files
+*.log
+*.out
