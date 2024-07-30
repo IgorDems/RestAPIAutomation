@@ -11,6 +11,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <project.build.directory>${project.basedir}/target</project.build.directory>
+        <cucumber.output>${project.build.directory}/cucumber.json</cucumber.output>
+        <maven.cucumber.reporting.version>5.5.4</maven.cucumber.reporting.version>
     </properties>
 
 
@@ -39,32 +42,19 @@
         </dependency>
 
         <!-- REST Assured dependencies -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>4.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>net.masterthought</groupId>
-            <artifactId>cucumber-reporting</artifactId>
-            <version>5.7.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.rest-assured</groupId>-->
+<!--            <artifactId>rest-assured</artifactId>-->
+<!--            <version>4.4.0</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>net.masterthought</groupId>-->
+<!--            <artifactId>cucumber-reporting</artifactId>-->
+<!--            <version>5.7.0</version>-->
+<!--        </dependency>-->
 
-
-        <!-- TestNG dependencies -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.3.0</version>
-            <scope>test</scope>
-        </dependency>
 
         <!-- Other dependencies like Jackson for JSON parsing -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.12.3</version>
-        </dependency>
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
@@ -76,6 +66,26 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>5.5.4</version>
+                <executions>
+                    <execution>
+                        <id>execution</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <projectName>RestAPIAutomation</projectName>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <cucumberOutput>${cucumber.output}</cucumberOutput>
+                            <parallelTesting>false</parallelTesting>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

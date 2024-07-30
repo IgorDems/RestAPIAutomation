@@ -18,7 +18,10 @@ pipeline {
         }
         stage('Report') {
             steps {
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'target', reportFiles: 'cucumber-reports.html', reportName: 'Cucumber Test Report'])
+                script {
+                    sh 'mvn verify'
+                }
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'target', reportFiles: 'cucumber-html-reports/overview-features.html', reportName: 'Cucumber Test Report'])
             }
         }
     }
