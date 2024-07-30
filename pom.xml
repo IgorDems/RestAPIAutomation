@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <cucumber.output>${project.build.directory}/cucumber.json</cucumber.output>
-        <maven.cucumber.reporting.version>5.7.0</maven.cucumber.reporting.version>
+        <maven.cucumber.reporting.version>5.8.0</maven.cucumber.reporting.version>
     </properties>
 
     <dependencies>
