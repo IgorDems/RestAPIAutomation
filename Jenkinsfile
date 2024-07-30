@@ -25,7 +25,8 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'mvn verify' // This may be redundant if using `mvn clean verify` above
+                        sh 'ls -al target' // Check if cucumber.json exists before generating the report
+                        sh 'mvn verify'
                     } catch (Exception e) {
                         echo 'Report generation failed'
                         throw e
