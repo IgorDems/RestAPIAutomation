@@ -8,7 +8,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
         features = "C:\\GitRepoTest\\RestAPIAutomation\\src\\test\\java\\com\\example\\APIAutomation\\features",
         glue = "com.example.APIAutomation.stepdefinitions",
-        plugin = {"pretty", "html:target/cucumber-reports.html"}
+        plugin = {"pretty","json:target/cucumber.json","html:target/cucumber-reports.html"}
 )
 public class APITestRunner {
 }
