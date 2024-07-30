@@ -16,7 +16,6 @@
         <maven.cucumber.reporting.version>5.5.4</maven.cucumber.reporting.version>
     </properties>
 
-
     <dependencies>
         <!-- Cucumber dependencies -->
         <dependency>
@@ -53,7 +52,6 @@
             <version>5.7.0</version>
         </dependency>
 
-
         <!-- Other dependencies like Jackson for JSON parsing -->
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
@@ -62,14 +60,12 @@
         </dependency>
     </dependencies>
 
-
-
     <build>
         <plugins>
             <plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>5.5.4</version>
+                <version>${maven.cucumber.reporting.version}</version>
                 <executions>
                     <execution>
                         <id>execution</id>
@@ -80,7 +76,9 @@
                         <configuration>
                             <projectName>RestAPIAutomation</projectName>
                             <outputDirectory>${project.build.directory}</outputDirectory>
-                            <cucumberOutput>${cucumber.output}</cucumberOutput>
+                            <jsonFiles>
+                                <param>${cucumber.output}</param>
+                            </jsonFiles>
                             <parallelTesting>false</parallelTesting>
                         </configuration>
                     </execution>
@@ -134,7 +132,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 </project>
