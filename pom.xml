@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -11,10 +12,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <project.build.directory>${project.basedir}/target</project.build.directory>
         <cucumber.output>${project.build.directory}/cucumber.json</cucumber.output>
         <maven.cucumber.reporting.version>5.7.0</maven.cucumber.reporting.version>
-        <cucumber.output>${project.build.directory}/cucumber.json</cucumber.output>
     </properties>
 
     <dependencies>
@@ -47,17 +46,12 @@
             <artifactId>rest-assured</artifactId>
             <version>4.4.0</version>
         </dependency>
+
+        <!-- Cucumber Reporting dependency -->
         <dependency>
             <groupId>net.masterthought</groupId>
             <artifactId>cucumber-reporting</artifactId>
             <version>5.7.0</version>
-        </dependency>
-
-        <!-- Other dependencies like Jackson for JSON parsing -->
-        <dependency>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>3.3.0</version>
         </dependency>
     </dependencies>
 
@@ -66,17 +60,17 @@
             <plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>5.7.0</version>
+                <version>${maven.cucumber.reporting.version}</version>
                 <executions>
                     <execution>
-                        <id>execution</id>
+                        <id>generate-cucumber-report</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
                             <projectName>RestAPIAutomation</projectName>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory>
                             <jsonFiles>
                                 <param>${cucumber.output}</param>
                             </jsonFiles>
@@ -85,6 +79,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -95,43 +91,18 @@
                     <target>16</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.3.1</version>
                 <configuration>
                     <properties>
-                        <!-- Work around. Surefire does not include enough
-                             information to disambiguate between different
-                             examples and scenarios. -->
                         <configurationParameters>
                             cucumber.junit-platform.naming-strategy=long
                         </configurationParameters>
                     </properties>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.3.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-cucumber-report</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                        <configuration>
-                            <mainClass>net.masterthought.cucumber.ReportBuilder</mainClass>
-                            <arguments>
-                                <argument>--json</argument>
-                                <argument>${project.build.directory}/cucumber.json</argument>
-                                <argument>--output</argument>
-                                <argument>${project.build.directory}/cucumber-reports</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -7,25 +7,15 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build') {
+        stage('Build and Test') {
             steps {
                 script {
                     try {
-                        sh 'mvn clean install'
+                        sh 'ls -al target' // Debugging step to check the directory before build
+                        sh 'mvn clean verify'
+                        sh 'ls -al target' // Debugging step to check the directory after build
                     } catch (Exception e) {
-                        echo 'Build failed'
-                        throw e
-                    }
-                }
-            }
-        }
-        stage('Test') {
-            steps {
-                script {
-                    try {
-                        sh 'mvn test'
-                    } catch (Exception e) {
-                        echo 'Tests failed'
+                        echo 'Build and Test failed'
                         throw e
                     }
                 }
@@ -35,7 +25,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'mvn verify'
+                        sh 'mvn verify' // This may be redundant if using `mvn clean verify` above
                     } catch (Exception e) {
                         echo 'Report generation failed'
                         throw e
@@ -51,8 +41,8 @@ pipeline {
         }
         failure {
             mail to: 'dems_i@yahoo.com',
-                subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                body: "Something is wrong with ${env.BUILD_URL}"
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}"
         }
     }
 }
